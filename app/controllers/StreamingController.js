@@ -26,6 +26,7 @@ module.exports = (db, emitter) => {
 
   StreamingController.ws('/ln/:id', (ws, req) => {
     const { id } = req.params;
+    console.log(`Setting up WS for invoice ${id}`);
     const listener = ([invoice]) => {
       if (invoice.id === id) {
         console.log(`sending invoice information for id ${id}`);

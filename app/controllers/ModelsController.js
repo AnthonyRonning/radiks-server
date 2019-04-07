@@ -41,6 +41,30 @@ const makeModelsController = (db, emitter) => {
     const validator = new Validator(db, attrs);
     try {
       validator.validate();
+      await db.save(attrs);
+      emitter.emit(STREAM_CRAWL_EVENT, [attrs]);
+
+      res.json({
+        success: true,
+      });
+    } catch (error) {
+      console.error(error);
+      res.status(400).json({
+        success: false,
+        message: error.message,
+      });
+    }
+  });
+
+  ModelsController.post('/crawl/ln', async (req, res) => {
+    const { gaiaURL } = req.body;
+    const attrs = await request({
+      uri: gaiaURL,
+      json: true,
+    });
+    const validator = new Validator(db, attrs);
+    try {
+      validator.validate();
       // attrs.index = false;
       // await db.save(attrs);
       // emitter.emit(STREAM_CRAWL_EVENT, [attrs]);

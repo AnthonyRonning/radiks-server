@@ -9,6 +9,7 @@
     "radiks-server": "./bin/radiks-server.js"
   },
   "scripts": {
+    "start": "node ./bin/radiks-server.js",
     "eslint": "eslint .",
     "test": "jest --verbose=true --ci --runInBand",
     "test-watch": "jest --verbose=true --ci --runInBand --watch"

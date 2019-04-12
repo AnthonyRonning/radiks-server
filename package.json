@@ -2,7 +2,7 @@
   "name": "radiks-server",
   "version": "0.1.9",
   "description": "An express plugin for building a Radiks server",
-  "main": "index.js",
+  "main": "./bin/radiks-server.js",
   "author": "Hank Stoever",
   "license": "MIT",
   "bin": {

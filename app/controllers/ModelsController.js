@@ -5,7 +5,7 @@ const queryToMongo = require('query-to-mongo');
 const { decorateApp } = require('@awaitjs/express');
 const { verifyECDSA } = require('blockstack/lib/encryption');
 const EventSource = require('eventsource');
-const charge = require('lightning-charge-client')('http://localhost:9112', 'mySecretToken');
+const charge = require('lightning-charge-client')(process.env.CHARGE_URI, process.env.CHARGE_APITOKEN);
 const Validator = require('../lib/validator');
 const { STREAM_CRAWL_EVENT } = require('../lib/constants');
 const { INVOICE_EVENT } = require('../lib/constants');
@@ -13,7 +13,7 @@ const { INVOICE_EVENT } = require('../lib/constants');
 const makeModelsController = (db, emitter) => {
   const ModelsController = decorateApp(express.Router());
   ModelsController.use(bodyParser.json());
-  const es = new EventSource('http://api-token:mySecretToken@localhost:9112/payment-stream');
+  const es = new EventSource(process.env.CHARGE_EVENTSOURCE);
   const messageDict = [];
 
   es.addEventListener('message', (msg) => {

@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
 const express = require('express');
-const next = require('next');
+const cors = require('cors')
 const expressWS = require('express-ws');
 
 const { setup } = require('../index');
@@ -30,11 +30,7 @@ const run = () => {
     setup().then((RadiksController) => {
       server.use('/radiks', RadiksController);
 
-      server.use((req, res, _next) => {
-        res.header('Access-Control-Allow-Origin', '*');
-        res.header('Access-Control-Allow-Headers', '*');
-        _next();
-      });
+      server.use(cors());
     });
 
     server.listen(port, (err) => {
